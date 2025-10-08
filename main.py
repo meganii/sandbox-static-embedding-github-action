@@ -49,7 +49,8 @@ def main():
         # for index, row in df.head(10).iterrows():
         for index, row in df.iterrows():
             try:
-                embedding = model.encode(row['block_text'])
+                logger.info("Encoding row %d/%d: page_id=%s", index + 1, total, row['page_id'])
+                embedding = model.encode(row['block_text'], show_progress_bar=False)
                 con.execute("""
                     INSERT INTO clines (page_id, title, text, updated, embedding)
                     VALUES (?, ?, ?, ?, ?)
