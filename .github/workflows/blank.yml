@@ -31,3 +31,6 @@ jobs:
 
       - name: Prepare database
         run: uv run prepare.py
+
+      - name: Run the script
+        run: uv run main.py
