@@ -26,7 +26,7 @@ def main():
         l.text,
         l.updated         AS line_updated,
         l.userId          AS line_userId
-    FROM read_parquet(${DATA_URL}) t
+    FROM read_parquet('{DATA_URL}') t
     CROSS JOIN UNNEST(t.lines) WITH ORDINALITY AS u(l, ord);
 
     WITH
