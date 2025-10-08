@@ -46,8 +46,8 @@ def main():
         total = len(df)
         logger.info("Encoding %d rows", total)
         # テストで、10件だけ処理する
-        for index, row in df.head(10).iterrows():
-        # for index, row in df.iterrows():
+        # for index, row in df.head(10).iterrows():
+        for index, row in df.iterrows():
             try:
                 embedding = model.encode(row['block_text'])
                 con.execute("""
