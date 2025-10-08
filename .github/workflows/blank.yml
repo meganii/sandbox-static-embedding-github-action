@@ -27,5 +27,5 @@ jobs:
       - name: Install the project
         run: uv sync --locked --all-extras --dev
 
-      - name: Download pages parquet file
-        run: uv run main.py
+      - name: Prepare database
+        run: uv run prepare.py
