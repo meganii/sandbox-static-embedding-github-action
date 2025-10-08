@@ -1,8 +1,13 @@
 import duckdb
+from logging_config import get_logger
 
 DATA_URL = "https://github.com/meganii/sandbox-github-actions-scheduler/releases/latest/download/pages.parquet"
 
+logger = get_logger(__name__)
+
+
 def main():
+    logger.info("Starting prepare step: expanding parquet into lines table")
     con = duckdb.connect("lines.duckdb")
     
     sql = f"""
@@ -89,11 +94,17 @@ def main():
     
     """
     try:
+        logger.debug("Executing SQL to build lines table from %s", DATA_URL)
         result = con.execute(sql)
         con.commit()
+        logger.info("Prepared lines table successfully")
+        logger.debug("Execute result: %s", result)
+    except Exception:
+        logger.exception("Failed to prepare lines table")
+        raise
     finally:
         con.close()
-    print(result)
+
 
 if __name__ == "__main__":
     main()
